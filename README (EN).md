@@ -13,11 +13,14 @@ This project is being built iteratively. KPI definitions, dashboards, and analyt
 
     As product SKUs, brands, and distribution channels grow, revenue streams become more complex and diversified -- and therefore, manual KPI analysis becomes inefficient and error-prone, leading to inaccurate evaluations and improperly utilized opportunities.
     This system aims to automate KPI analysis, surface hidden trends, and support strategic decision-making for sales and operations teams.
+    
 - Problem Definition
   - Sales performance has a direct correlation to revenue outcomes, and therefore KPI data is crucial for proper understanding of company revenue and future endeavors.
   - Optimizing SKUs, brands, and platforms will help maximize returns.
   - Analyzing KPI metrics and incorporating AI for deliverable insights will optimize sales and revenue strategies.
+
 - Estimated Timeline: 2025.12.17 ~ 2026.02.28
+
 - Main Responsibilities:
   - Deploy KPI dashboard, implement API connections for ChatGPT and dashboard interactions.
   - Define KPI metrics + calculations, extract KPI insights, and set new KPI objectives (statistical).
@@ -50,8 +53,10 @@ This project aims to answer questions such as:
   - Preprocessing
     - Changed data type of date column (string -> datetime) for time series
     - Created new column: Order_Revenue = Price * Quantity
+
 - System Architecture
   [ Sales Data ] -> [ FastAPI Backend ] -> [ KPI Computation & Analytics Layer ] -> [ AI Insight Layer (LLM-assisted) ] -> [ React Dashboard and Chat Interface ]
+
 - Tech Stack
   - Backend: Python, NumPy, FastAPI, OpenAI API
   - Frontend: JavaScript, React, Axios
