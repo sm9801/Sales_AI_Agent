@@ -55,7 +55,7 @@ This project aims to answer questions such as:
     - Created new column: Order_Revenue = Price * Quantity
 
 - System Architecture
-  [ Sales Data ] -> [ FastAPI Backend ] -> [ KPI Computation & Analytics Layer ] -> [ AI Insight Layer (LLM-assisted) ] -> [ React Dashboard and Chat Interface ]
+  - [ Sales Data ] -> [ FastAPI Backend ] -> [ KPI Computation & Analytics Layer ] -> [ AI Insight Layer (LLM-assisted) ] -> [ React Dashboard and Chat Interface ]
 
 - Tech Stack
   - Backend: Python, NumPy, FastAPI, OpenAI API
