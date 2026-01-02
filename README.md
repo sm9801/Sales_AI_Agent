@@ -1,6 +1,6 @@
 📊 Sales AI Agent — KPI 분석 및 의사결정 지원 시스템 
 
-For English version, click here: [Overview in English](README (EN).md)
+For English version, click here: [Overview in English](https://github.com/sm9801/sales-ai-agent/blob/main/README%20(EN).md)
 
 ⚠️ 프로젝트 상태: 개발 진행 중 (Actively under development)
 - 본 프로젝트는 반복적(Iterative) 개발 방식으로 진행되고 있으며, KPI 정의, 대시보드, 분석 인사이트는 개발 과정에 따라 지속적으로 추가 및 고도화될 예정입니다.
