@@ -82,7 +82,7 @@
 // export default Upload;
 
 import { useState } from "react";
-import { fetchSummaryMetrics, uploadCSV } from "../api";
+import { fetchAllMetrics, uploadCSV } from "../api";
 
 function Upload({ onMetricsLoaded }) {
   const [file, setFile] = useState(null);
@@ -100,7 +100,7 @@ function Upload({ onMetricsLoaded }) {
       setError(null);
 
       await uploadCSV(file);
-      const metrics = await fetchSummaryMetrics();
+      const metrics = await fetchAllMetrics();
 
       onMetricsLoaded(metrics);
     } catch (err) {

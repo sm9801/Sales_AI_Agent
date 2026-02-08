@@ -7,7 +7,6 @@ from fastapi import APIRouter, HTTPException
 
 router = APIRouter(prefix="/metrics", tags=["Metrics"])
 
-
 @router.get("/summary")
 def get_summary_metrics():
     try:
@@ -50,3 +49,21 @@ def get_product_metrics():
         return product_metrics(df)
     except Exception as e:
         raise HTTPException(status_code = 400, detail = str(e)) from e
+
+@router.get("/all")
+def get_all_metrics():
+    """retrieve all sales metrics."""
+    try:
+        df = get_sales_data()
+        if df is None:
+            return {"error": "No data uploaded yet"}
+        return {
+            "summary": summary_metrics(df),
+            "platform": platform_metrics(df),
+            "brand": brand_metrics(df),
+            "products": product_metrics(df),
+            "time": time_metrics(df),
+        }
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+

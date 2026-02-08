@@ -31,22 +31,27 @@ export const fetchSummaryMetrics = async () => {
 
 export async function fetchTimeMetrics() {
   const res = await api.get(`/metrics/time`);
-  return res.json();
+  return res.data;
 }
 
 export async function fetchProductMetrics() {
-  const res = await api.get(`/metrics/product`);
-  return res.json();
+  const res = await api.get(`/metrics/products`);
+  return res.data;
 }
 
 export async function fetchBrandMetrics() {
   const res = await api.get(`/metrics/brand`);
-  return res.json();
+  return res.data;
 }
 
 export async function fetchPlatformMetrics() {
   const res = await api.get(`/metrics/platform`);
-  return res.json();
+  return res.data;
+}
+
+export async function fetchAllMetrics() {
+  const res = await api.get(`/metrics/all`);
+  return res.data;
 }
 
 export default api;

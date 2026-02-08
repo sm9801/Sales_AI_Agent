@@ -10,24 +10,52 @@
 
 // export default App;
 
+// import { useState } from "react";
+// import SummaryCards from "./components/SummaryCards";
+// import Upload from "./components/Upload";
+
+// function App() {
+//   const [summary, setSummary] = useState(null);
+
+//   return (
+//     <div style={{ padding: "40px" }}>
+//       <h2>Sales Overview</h2>
+
+//       {/* Upload CSV + trigger KPI calculation */}
+//       <Upload onMetricsLoaded={setSummary} />
+
+//       {/* Show KPIs only after data exists */}
+//       {summary && <SummaryCards data={summary} />}
+//     </div>
+//   );
+// }
+
+// export default App;
+
 import { useState } from "react";
+import ChartsDashboard from "./components/ChartsDashboard";
 import SummaryCards from "./components/SummaryCards";
 import Upload from "./components/Upload";
 
 function App() {
-  const [summary, setSummary] = useState(null);
+  const [metrics, setMetrics] = useState(null);
 
   return (
     <div style={{ padding: "40px" }}>
-      <h2>Sales Overview</h2>
+      <h2>Sales Dashboard</h2>
 
-      {/* Upload CSV + trigger KPI calculation */}
-      <Upload onMetricsLoaded={setSummary} />
+      <Upload onMetricsLoaded={setMetrics} />
 
-      {/* Show KPIs only after data exists */}
-      {summary && <SummaryCards data={summary} />}
+      {metrics && (
+        <>
+          <SummaryCards data={metrics.summary} />
+          <ChartsDashboard metrics={metrics} />
+        </>
+      )}
     </div>
   );
 }
 
 export default App;
+
+

@@ -1,7 +1,21 @@
 """
 Sales data analysis service functions.
 """
+from typing import Any
+
+import numpy as np
 import pandas as pd
+
+
+def to_native(value: Any) -> Any:
+    """Convert numpy/pandas scalar types to native Python types for JSON."""
+    if isinstance(value, (np.integer, np.floating)):
+        return value.item()
+    if isinstance(value, dict):
+        return {to_native(key): to_native(val) for key, val in value.items()}
+    if isinstance(value, list):
+        return [to_native(item) for item in value]
+    return value
 
 
 def add_order_revenue(df: pd.DataFrame) -> pd.DataFrame:
@@ -42,13 +56,13 @@ def summary_metrics(df: pd.DataFrame) -> dict:
     avg_items_per_order = total_units / total_orders if total_orders > 0 else 0.0
 
 
-    return {
+    return to_native({
         'total_revenue': round(total_revenue, 2),
         'total_orders': int(total_orders),
         'aov': round(aov, 2),
         'total_units': int(total_units),
         "avg_items_per_order": round(avg_items_per_order, 2),
-    }
+    })
 
 def platform_metrics(df: pd.DataFrame) :
     """
@@ -70,12 +84,12 @@ def platform_metrics(df: pd.DataFrame) :
     aov = (revenue / orders).round(2)
     units_per_order = (units / orders).round(2)
 
-    return {
+    return to_native({
         'revenue_by_platform': revenue.to_dict(),
         'orders_by_platform': df.groupby('Platform').size().to_dict(),
         'aov_by_platform': aov.to_dict(),
         'units_per_order_by_platform': units_per_order.to_dict(),
-    }
+    })
 
 def brand_metrics(df: pd.DataFrame) :
     """
@@ -105,11 +119,11 @@ def brand_metrics(df: pd.DataFrame) :
 
     revenue_share = revenue / revenue.sum() * 100
 
-    return {
+    return to_native({
         'revenue_by_brand': revenue.to_dict(),
         'units_by_brand': units.to_dict(),
         'revenue_share_by_brand': revenue_share.to_dict(),
-    }
+    })
 
 def time_metrics(df: pd.DataFrame) :
     """
@@ -151,11 +165,11 @@ def time_metrics(df: pd.DataFrame) :
     monthly_revenue = monthly_revenue.fillna(0).round(2)
 
 
-    return {
+    return to_native({
         'monthly_revenue': monthly_revenue.round(2).to_dict(),
         'mom_growth': mom_growth.to_dict(),
         'yoy_growth': yoy_growth.to_dict(),
-    }
+    })
 
 def product_metrics(df: pd.DataFrame, n: int = 10) :
     """
@@ -183,7 +197,7 @@ def product_metrics(df: pd.DataFrame, n: int = 10) :
         .head(n)
     )
 
-    return {
+    return to_native({
         'top_products_by_revenue': revenue.to_dict(),
         'top_products_by_units': units.to_dict()
-    }
+    })

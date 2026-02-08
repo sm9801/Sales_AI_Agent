@@ -1,3 +1,5 @@
+import { formatKRW } from "../utils/formatters";
+
 const Card = ({ title, value }) => (
     <div style={{
         padding: "20px",
@@ -15,10 +17,10 @@ const SummaryCards = ({ data }) => {
 
     return (
         <div style={{ display: "flex", gap: "20px" }}>
-            <Card title="Total Revenue" value={'$${data.total_revenue}'} />
-            <Card title="Total Orders" value={data.total_orders} />
-            <Card title="AOV" value={'$${data.aov}'} />
-            <Card title="Total Units" value={data.total_units} />
+            <Card title="Total Revenue" value={formatKRW(data.total_revenue)} />
+            <Card title="Total Orders" value={data.total_orders.toLocaleString()} />
+            <Card title="AOV" value={formatKRW(data.aov)} />
+            <Card title="Total Units" value={data.total_units.toLocaleString()} />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 """
 Main FastAPI application for sales data metrics.
 """
+from app.routes.metrics import router as metrics_router
 from app.services.sales import (brand_metrics, platform_metrics,
                                 product_metrics, summary_metrics, time_metrics)
 from app.utils.data_store import get_sales_data, set_sales_data
@@ -61,61 +62,63 @@ async def upload_sales_file(file: UploadFile = File(...)):
 #                                 product_metrics, summary_metrics, time_metrics)
 
 
-@app.get("/metrics/summary")
-def get_summary_metrics():
-    """retrieve summary sales metrics."""
-    try :
-        df = get_sales_data()
-    except ValueError :
-        return {
-            "total_revenue": 0,
-            "total_orders": 0,
-            "aov": 0,
-            "total_units": 0,
-            "avg_items_per_order": 0,
-        }
-    return summary_metrics(df)
+# @app.get("/metrics/summary")
+# def get_summary_metrics():
+#     """retrieve summary sales metrics."""
+#     try :
+#         df = get_sales_data()
+#     except ValueError :
+#         return {
+#             "total_revenue": 0,
+#             "total_orders": 0,
+#             "aov": 0,
+#             "total_units": 0,
+#             "avg_items_per_order": 0,
+#         }
+#     return summary_metrics(df)
 
 
-@app.get("/metrics/platform")
-def get_platform_metrics():
-    """retrieve platform sales metrics."""
-    df = get_sales_data()
+# @app.get("/metrics/platform")
+# def get_platform_metrics():
+#     """retrieve platform sales metrics."""
+#     df = get_sales_data()
 
-    if df is None:
-        return {"error": "No data uploaded yet"}
-    return platform_metrics(df)
+#     if df is None:
+#         return {"error": "No data uploaded yet"}
+#     return platform_metrics(df)
 
 
-@app.get("/metrics/products")
-def get_product_metrics():
-    """retrieve product sales metrics."""
-    df = get_sales_data()
+# @app.get("/metrics/products")
+# def get_product_metrics():
+#     """retrieve product sales metrics."""
+#     df = get_sales_data()
 
-    if df is None:
-        return {"error": "No data uploaded yet"}
-    return product_metrics(df)
+#     if df is None:
+#         return {"error": "No data uploaded yet"}
+#     return product_metrics(df)
 
-@app.get("/metrics/brands")
-def get_brand_metrics() :
-    """retrieve brand sales metrics."""
-    df = get_sales_data()
+# @app.get("/metrics/brands")
+# def get_brand_metrics() :
+#     """retrieve brand sales metrics."""
+#     df = get_sales_data()
 
-    if df is None :
-        return{"error": "No data uploaded yet"}
-    return brand_metrics(df)
+#     if df is None :
+#         return{"error": "No data uploaded yet"}
+#     return brand_metrics(df)
 
-@app.get("/metrics/time")
-def get_time_metrics() :
-    """retrieve time sales metrics (MoM, YoY Growth)."""
-    df = get_sales_data()
+# @app.get("/metrics/time")
+# def get_time_metrics() :
+#     """retrieve time sales metrics (MoM, YoY Growth)."""
+#     df = get_sales_data()
 
-    if df is None :
-        return{"error": "No data uploaded yet"}
-    return time_metrics(df)
+#     if df is None :
+#         return{"error": "No data uploaded yet"}
+#     return time_metrics(df)
 
 
 @app.get("/ping")
 def ping():
     """Ping endpoint to test connectivity."""
     return {"message": "FastAPI is connected!"}
+
+app.include_router(metrics_router)
